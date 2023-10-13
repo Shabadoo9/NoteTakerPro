@@ -47,11 +47,10 @@ app.get('/api/notes/:id', async (req, res) => {
     }
 });
 
-//get - API call for a note
+// GET - API call for a list of notes
 app.get('/api/notes', async (req, res) => {
     try {
-        const data = await fs.readFile(path.resolve(__dirname, './db/db.json'), 'utf8');
-        console.log(data);
+        const data = await fs.promises.readFile(path.resolve(__dirname, './db/db.json'), 'utf8');
         const notes = JSON.parse(data);
         res.json(notes);
     } catch (err) {
