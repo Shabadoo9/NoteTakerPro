@@ -10,10 +10,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.use(express.json());
 
-//Post api call to post notes
+// POST - API call to post notes
 app.post('/api/notes', async (req, res) => {
     try {
-        const data = await fs.readFile(path.resolve(__dirname, './db/db.json'), 'utf8');
+        const data = await fs.promises.readFile(path.resolve(__dirname, './db/db.json'), 'utf8');
         const notes = JSON.parse(data);
 
         const userNote = req.body;
@@ -21,19 +21,19 @@ app.post('/api/notes', async (req, res) => {
 
         notes.push(userNote);
 
-        await fs.writeFile(path.resolve(__dirname, './db/db.json'), JSON.stringify(notes));
+        await fs.promises.writeFile(path.resolve(__dirname, './db/db.json'), JSON.stringify(notes));
 
         res.json(userNote);
     } catch (err) {
         console.log(err);
-        res.status(500).json({ error: 'internal server error' })
+        res.status(500).json({ error: 'Internal Server Error' });
     }
 });
 
 // GET - API call for a note with a unique ID
 app.get('/api/notes/:id', async (req, res) => {
     try {
-        const data = await fs.readFile(path.resolve(__dirname, './db/db.json'), 'utf8');
+        const data = await fs.promises.readFile(path.resolve(__dirname, './db/db.json'), 'utf8');
         const notes = JSON.parse(data);
         const note = notes.find((note) => note.id === parseInt(req.params.id));
         if (note) {
