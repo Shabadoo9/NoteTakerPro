@@ -69,6 +69,6 @@ app.get('*', (req, res) => {
 });
 
 // Listener function to handle server events
-app.listen(PORT, () => {
-    console.log(`App listening on PORT: ${PORT}`);
+app.listen(port, () => {
+    console.log(`App listening on PORT: ${port}`);
 });
