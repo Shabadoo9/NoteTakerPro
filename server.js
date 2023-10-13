@@ -29,3 +29,20 @@ app.post('/api/notes', async (req, res) => {
     res.status(500).json({error: 'internal server error'})
     }
 });
+
+// GET - API call for a note with a unique ID
+app.get('/api/notes/:id', async (req, res) => {
+    try {
+      const data = await fs.readFile(path.resolve(__dirname, './db/db.json'), 'utf8');
+      const notes = JSON.parse(data);
+      const note = notes.find((note) => note.id === parseInt(req.params.id));
+      if (note) {
+        res.json(note);
+      } else {
+        res.status(404).json({ error: 'Note not found' });
+      }
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  });
