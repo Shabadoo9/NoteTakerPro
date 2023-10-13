@@ -51,6 +51,7 @@ app.get('/api/notes/:id', async (req, res) => {
 app.get('/api/notes', async (req, res) => {
     try {
         const data = await fs.readFile(path.resolve(__dirname, './db/db.json'), 'utf8');
+        console.log(data);
         const notes = JSON.parse(data);
         res.json(notes);
     } catch (err) {
