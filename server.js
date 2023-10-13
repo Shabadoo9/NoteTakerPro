@@ -58,3 +58,17 @@ app.get('/api/notes/', async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
+
+// HTML Routes
+app.get('/notes', (req, res) => {
+    res.sendFile(path.join(__dirname, '/notes.html'));
+});
+
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '/index.html'));
+});
+
+// Listener function to handle server events
+app.listen(PORT, () => {
+    console.log(`App listening on PORT: ${PORT}`);
+});
