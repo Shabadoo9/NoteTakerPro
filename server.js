@@ -17,7 +17,7 @@ app.post('/api/notes', async (req, res) => {
         const notes = JSON.parse(data);
 
         const userNote = req.body;
-        userNote.id = math.floor(math.random() * 5000);
+        userNote.id = Math.floor(Math.random() * 5000);
 
         notes.push(userNote);
 
@@ -48,9 +48,9 @@ app.get('/api/notes/:id', async (req, res) => {
 });
 
 //get - API call for a note
-app.get('/api/notes/', async (req, res) => {
+app.get('/api/notes', async (req, res) => {
     try {
-        const data = await fs.readFile(path.resolve(__dirname, ".db"), 'utf8');
+        const data = await fs.readFile(path.resolve(__dirname, './db/db.json'), 'utf8');
         const notes = JSON.parse(data);
         res.json(notes);
     } catch (err) {
